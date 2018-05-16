@@ -44,14 +44,16 @@ void loop(){
     left_vals[curr_l++] = left_hand;
   }
   else {
-    left_hand = check_potential(left_vals);      
+    left_hand = check_potential(left_vals);   
+    curr_l = 0;   
   }
 
   if (curr_r < WINDOW_SIZE) {
     right_vals[curr_r++] = right_hand;
   }
   else {
-    right_hand = check_potential(right_vals);  
+    right_hand = check_potential(right_vals); 
+    curr_r = 0; 
   }
 
   Serial.print('L');
@@ -63,6 +65,7 @@ void loop(){
   Serial.print('R');
   Serial.println(right_hand);
   Serial.flush();
+
 
   delay(300);
 }
