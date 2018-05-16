@@ -2,6 +2,7 @@ import pygame
 import game_config as config
 from space_ship import SpaceShip
 from asteroid import Asteroid
+import data_handler.arduino as arduino
 
 pygame.init()
 
@@ -30,11 +31,8 @@ while carryOn:
         if event.type == pygame.QUIT:
               carryOn = False
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        space_ship.move_left()
-    if keys[pygame.K_RIGHT]:
-        space_ship.move_right()
+    movement = arduino.get_movement()
+    space_ship.move(movement)    
 
     # Logic
 
