@@ -6,7 +6,9 @@ class SpaceShip(SpaceObject):
         super().__init__('assets/spaceship.png', config.WINDOW_WIDTH / 2  - config.SHIP_WIDTH / 2, config.WINDOW_HEIGHT - config.SHIP_HEIGHT)
 
     def move_left(self):
-        self.rect.x -= config.SHIP_MOVE_DX
+        if not (self.rect.x - config.SHIP_MOVE_DX < 0):
+            self.rect.x -= config.SHIP_MOVE_DX
 
     def move_right(self):
-        self.rect.x += config.SHIP_MOVE_DX
+        if not (self.rect.x + config.SHIP_WIDTH + config.SHIP_MOVE_DX > config.WINDOW_WIDTH):
+            self.rect.x += config.SHIP_MOVE_DX
