@@ -85,16 +85,18 @@ void loop(){
     Serial.println(count_to_setup);
   }
   else {
-    Serial.print('L');
-    Serial.println(left_hand);
-    Serial.flush();
-  
-    delay(300);
-    
-    Serial.print('R');
-    Serial.println(right_hand);
-    Serial.flush();  
+    if (curr_l == 0) {
+      Serial.print('L');
+      Serial.println(left_hand);
+      Serial.flush();
+    }
+
+    if (curr_r == 0) {
+      Serial.print('R');
+      Serial.println(right_hand);
+      Serial.flush();  
+    }
   }
 
-  delay(300);
+  delay(50);
 }
