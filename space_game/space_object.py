@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 import game_config as config
 
 class SpaceObject(Sprite):
-    def __init__(self, image_path, width, height, start_x, start_y):
+    def __init__(self, image_path, start_x, start_y):
         super().__init__()
 
         self.image = pygame.image.load(image_path).convert_alpha()
