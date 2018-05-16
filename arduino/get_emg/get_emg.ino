@@ -1,10 +1,12 @@
 const int WINDOW_SIZE = 10; // Кол-во считываемых значений для проверки потенциала
 
-int threshold_val = 300; // Пороговое значение
+int count_to_setup = 3; // Кол-во сжиманий рук для настройки программы
+int min_threshold_val = 200; // Минимально пороговое значение
+int threshold_val = -1; // Пороговое значение
 
-int left_hand = 0, right_hand = 0;
-int left_vals[WINDOW_SIZE], right_vals[WINDOW_SIZE];
-int curr_l = 0, curr_r = 0;
+int left_hand = 0, right_hand = 0; // Значения на левой и правой руках
+int left_vals[WINDOW_SIZE], right_vals[WINDOW_SIZE]; // Массив значений на левой и правой руках
+int curr_l = 0, curr_r = 0; // Номер текущего считанного значения
 
 int get_array_elem(int arr[WINDOW_SIZE], int (&cmp)(int, int)) {
   int val = arr[0];
@@ -25,11 +27,20 @@ int cmp_max(int l, int r) {
   return l > r;
 }
 
-int check_potential(int arr[WINDOW_SIZE]) {
+void setup_threshold(int arr[WINDOW_SIZE]) {
+  int min_val = get_array_elem(arr, cmp_min);
+  int max_val = get_array_elem(arr, cmp_max);
+
+  if (max_val - min_val > min_threshold_val) {
+    threshold_val = threshold_val == -1 ? max_val - min_val : (threshold_val + max_val - min_val) / 2;
+  }
+}
+
+int check_potential(int arr[WINDOW_SIZE], int cmp_number) {
  int min_val = get_array_elem(arr, cmp_min);
  int max_val = get_array_elem(arr, cmp_max);
 
- return max_val - min_val > threshold_val;
+ return max_val - min_val > cmp_number;
 }
 
 void setup() {
@@ -39,12 +50,19 @@ void setup() {
 void loop(){
   left_hand = analogRead(A0);
   right_hand = analogRead(A1);
-
+  
   if (curr_l < WINDOW_SIZE) {
     left_vals[curr_l++] = left_hand;
   }
   else {
-    left_hand = check_potential(left_vals);   
+    if (count_to_setup) {
+      setup_threshold(left_vals);
+    }
+    else {
+      left_hand = check_potential(left_vals, threshold_val);
+      count_to_setup--;
+    }   
+    
     curr_l = 0;   
   }
 
@@ -52,20 +70,32 @@ void loop(){
     right_vals[curr_r++] = right_hand;
   }
   else {
-    right_hand = check_potential(right_vals); 
+    if (count_to_setup) {
+      setup_threshold(right_vals);
+      count_to_setup--;
+    }
+    else {
+      right_hand = check_potential(right_vals, threshold_val);
+    }
+    
     curr_r = 0; 
   }
 
-  Serial.print('L');
-  Serial.println(left_hand);
-  Serial.flush();
-
-  delay(300);
+  if (count_to_setup) {
+    Serial.print('S');
+    Serial.println(count_to_setup);
+  }
+  else {
+    Serial.print('L');
+    Serial.println(left_hand);
+    Serial.flush();
   
-  Serial.print('R');
-  Serial.println(right_hand);
-  Serial.flush();
-
+    delay(300);
+    
+    Serial.print('R');
+    Serial.println(right_hand);
+    Serial.flush();  
+  }
 
   delay(300);
 }
