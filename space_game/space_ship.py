@@ -14,11 +14,8 @@ class SpaceShip(SpaceObject):
             self.rect.x += config.SHIP_MOVE_DX
     
     def move(self, movement):
-        print(movement[-1])
         if movement[-1] == '1':
-            print('m')
             if movement[0] == 'L':
-                print('moved left')
                 self.move_left()
             elif movement[0] == 'R':
                 self.move_right()
