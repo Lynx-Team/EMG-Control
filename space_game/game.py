@@ -20,19 +20,47 @@ space_ship = SpaceShip()
 all_sprites_list.add(space_ship)
 
 carryOn = True
+isSetup = False
 current_asteroid_time = 0
 score = 0
 clock = pygame.time.Clock()
 
 while carryOn:
+    # First setup
+
+    while not isSetup:
+        count_for_setup = arduino.get_data()
+
+        if (len(count_for_setup) < 2):
+            continue
+
+        print(count_for_setup)
+
+        event = pygame.event.wait()
+        if event.type == pygame.QUIT:
+            isSetup = True
+            carryOn = False
+            break
+
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or count_for_setup[0] != 'S':
+            print(count_for_setup)
+            isSetup = True
+            break
+
+        text_setup = font.render(config.SETUP_TEXT + ', ' + count_for_setup[1] + ' times left.', True, config.WHITE)
+
+        screen.fill(config.BLACK)
+        screen.blit(text_setup, (config.WINDOW_WIDTH / 2 - text_setup.get_width() / 2, config.WINDOW_HEIGHT / 2 - text_setup.get_height() / 2))
+        pygame.display.flip()
+        clock.tick(30)
+
     # Events
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
               carryOn = False
 
-    movement = arduino.get_movement()
-    space_ship.move(movement)    
+    space_ship.move(arduino.get_data())
 
     # Logic
 

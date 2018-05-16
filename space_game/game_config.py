@@ -21,3 +21,5 @@ FONT_FAMILY = None
 FONT_SIZE = 32
 GAME_OVER_TEXT = 'Game over!'
 SCORE_TEXT = 'Score: '
+
+SETUP_TEXT = 'Please, strain your arms'
