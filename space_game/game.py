@@ -6,6 +6,7 @@ from asteroid import Asteroid
 pygame.init()
 
 font = pygame.font.SysFont(config.FONT_FAMILY, config.FONT_SIZE)
+background = pygame.image.load('assets/bg.jpg')
 
 size = (config.WINDOW_WIDTH, config.WINDOW_HEIGHT)
 screen = pygame.display.set_mode(size)
@@ -58,9 +59,10 @@ while carryOn:
 
     # Draw
 
-    text_score = font.render(config.SCORE_TEXT + str(score), True, (0, 128, 0))
+    text_score = font.render(config.SCORE_TEXT + str(score), True, config.BLUE)
 
     screen.fill(config.BLACK)
+    screen.blit(background, (0, 0))
     screen.blit(text_score, (5, 5))
     all_sprites_list.draw(screen)
 
