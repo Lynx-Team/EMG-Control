@@ -33,6 +33,7 @@ void setup_threshold(int arr[WINDOW_SIZE]) {
 
   if (max_val - min_val > min_threshold_val) {
     threshold_val = threshold_val == -1 ? max_val - min_val : (threshold_val + max_val - min_val) / 2;
+    count_to_setup--;
   }
 }
 
@@ -55,12 +56,11 @@ void loop(){
     left_vals[curr_l++] = left_hand;
   }
   else {
-    if (count_to_setup) {
+    if (count_to_setup > 0) {
       setup_threshold(left_vals);
     }
     else {
       left_hand = check_potential(left_vals, threshold_val);
-      count_to_setup--;
     }   
     
     curr_l = 0;   
@@ -70,9 +70,8 @@ void loop(){
     right_vals[curr_r++] = right_hand;
   }
   else {
-    if (count_to_setup) {
+    if (count_to_setup > 0) {
       setup_threshold(right_vals);
-      count_to_setup--;
     }
     else {
       right_hand = check_potential(right_vals, threshold_val);
@@ -81,7 +80,7 @@ void loop(){
     curr_r = 0; 
   }
 
-  if (count_to_setup) {
+  if (count_to_setup > 0) {
     Serial.print('S');
     Serial.println(count_to_setup);
   }
