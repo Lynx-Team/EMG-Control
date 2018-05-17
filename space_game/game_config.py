@@ -15,11 +15,11 @@ ASTEROID_WIDTH = 20
 ASTEROID_HEIGHT = 20
 ASTEROID_MIN_SPEED = 3
 ASTEROID_MAX_SPEED = 5
-ASTEROID_INTERVAL = 3000000
+ASTEROID_INTERVAL = 40
 
 FONT_FAMILY = None
 FONT_SIZE = 32
 GAME_OVER_TEXT = 'Game over!'
 SCORE_TEXT = 'Score: '
 
-SETUP_TEXT = 'Please, strain your arms'
+SETUP_TEXT = 'Please, strain your arms, {} times left.'

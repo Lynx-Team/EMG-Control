@@ -47,12 +47,12 @@ while not isSetup:
             isSetup = True
             break
 
-    text_setup = font.render(config.SETUP_TEXT + ', ' + count_for_setup[1] + ' times left.', True, config.WHITE)
+    text_setup = font.render(config.SETUP_TEXT.format(count_for_setup[1]), True, config.WHITE)
 
     screen.fill(config.BLACK)
     screen.blit(text_setup, (config.WINDOW_WIDTH / 2 - text_setup.get_width() / 2, config.WINDOW_HEIGHT / 2 - text_setup.get_height() / 2))
     pygame.display.flip()
-    clock.tick(30)
+    clock.tick(60)
 
 while carryOn:
 
