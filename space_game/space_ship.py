@@ -1,4 +1,5 @@
 from space_object import SpaceObject
+from bullet import Bullet
 import game_config as config
 
 class SpaceShip(SpaceObject):
@@ -17,11 +18,13 @@ class SpaceShip(SpaceObject):
         if len(movement) < 2:
             return
 
-        movement = movement[1];
+        movement = movement[1]
 
         if movement == '1':
             self.move_left()
+            return None
         elif movement == '2':
             self.move_right()
+            return None
         elif movement == '3':
-            print('FIRE')
+            return Bullet(self.rect.x + config.SHIP_WIDTH // 2 - config.BULLET_WIDTH // 2, config.WINDOW_HEIGHT - config.SHIP_HEIGHT)

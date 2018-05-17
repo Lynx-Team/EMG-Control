@@ -15,6 +15,7 @@ pygame.display.set_caption(config.WINDOW_CAPTION)
 
 all_sprites_list = pygame.sprite.Group()
 all_asteroids = pygame.sprite.Group()
+all_bullets = pygame.sprite.Group()
 
 space_ship = SpaceShip()
 all_sprites_list.add(space_ship)
@@ -62,14 +63,17 @@ while carryOn:
         if event.type == pygame.QUIT:
               carryOn = False
 
-    space_ship.move(arduino.get_data())
+    bullet = space_ship.move(arduino.get_data())
+    if not bullet is None:
+        all_sprites_list.add(bullet)
+        all_bullets.add(bullet)
 
     # Logic
 
     for astr in all_asteroids:
         if astr.rect.y >= config.WINDOW_HEIGHT:
             score += 1
-            all_asteroids.remove(astr)
+            astr.kill()
 
     current_asteroid_time += 1
     if current_asteroid_time >= config.ASTEROID_INTERVAL:
@@ -82,6 +86,11 @@ while carryOn:
     for i in collision_list:
         print(config.GAME_OVER_TEXT)
         carryOn = False
+
+    for b in all_bullets:
+        collision_list = pygame.sprite.spritecollide(b, all_asteroids, True)
+        if collision_list:
+            b.kill()
 
     all_sprites_list.update()
 
