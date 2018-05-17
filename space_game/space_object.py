@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-import game_config as config
+import space_game.game_config as config
 
 class SpaceObject(Sprite):
     def __init__(self, image_path, start_x, start_y):

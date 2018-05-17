@@ -1,10 +1,10 @@
-from space_object import SpaceObject
-from bullet import Bullet
-import game_config as config
+from space_game.space_object import SpaceObject
+from space_game.bullet import Bullet
+import space_game.game_config as config
 
 class SpaceShip(SpaceObject):
     def __init__(self):
-        super().__init__('assets/spaceship.png', config.WINDOW_WIDTH / 2  - config.SHIP_WIDTH / 2, config.WINDOW_HEIGHT - config.SHIP_HEIGHT)
+        super().__init__('space_game/assets/spaceship.png', config.WINDOW_WIDTH / 2  - config.SHIP_WIDTH / 2, config.WINDOW_HEIGHT - config.SHIP_HEIGHT)
 
     def move_left(self):
         if not (self.rect.x - config.SHIP_MOVE_DX < 0):
