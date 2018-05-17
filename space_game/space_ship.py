@@ -17,8 +17,11 @@ class SpaceShip(SpaceObject):
         if len(movement) < 2:
             return
 
-        if movement[1] == '1':
-            if movement[0] == 'L':
-                self.move_left()
-            elif movement[0] == 'R':
-                self.move_right()
+        movement = movement[1];
+
+        if movement == '1':
+            self.move_left()
+        elif movement == '2':
+            self.move_right()
+        elif movement == '3':
+            print('FIRE')
