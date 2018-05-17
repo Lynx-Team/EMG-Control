@@ -103,5 +103,5 @@ void loop(){
     Serial.flush();
   }
 
-  delay(200);
+  delay(50);
 }
