@@ -1,3 +1,4 @@
+import sys
 import pygame
 from space_game import game as space_game
 from setup_menu import start_setup
@@ -17,14 +18,14 @@ def main(mode):
 
     start_setup(screen)
 
-    if mode == 'space_game':
+    if mode == 'space':
         space_game.start_game(screen)
     elif mode == 'flappy':
         close_setup_window()
         flappy.start_game('flappy_bird\\flappy_bird.exe')
-    elif mode == 'read':
+    elif mode == 'reader':
         close_setup_window()
         pdf.start_pdf_reader('pdf\War_and_Peace.pdf')
 
 if __name__ == '__main__':
-    main('read')
+    main(sys.argv[1])
