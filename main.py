@@ -2,7 +2,12 @@ import pygame
 from space_game import game as space_game
 from setup_menu import start_setup
 import space_game.game_config as config
-import flappy_bird.game as flappy 
+import flappy_bird.game as flappy
+import pdf.show as pdf
+
+def close_setup_window():
+    pygame.display.quit()
+    pygame.quit()
 
 def main(mode):
     pygame.init()
@@ -15,9 +20,11 @@ def main(mode):
     if mode == 'space_game':
         space_game.start_game(screen)
     elif mode == 'flappy':
-        pygame.display.quit()
-        pygame.quit()
+        close_setup_window()
         flappy.start_game('flappy_bird\\flappy_bird.exe')
+    elif mode == 'read':
+        close_setup_window()
+        pdf.start_pdf_reader('pdf\War_and_Peace.pdf')
 
 if __name__ == '__main__':
-    main('flappy')
+    main('read')
